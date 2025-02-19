@@ -1,0 +1,10 @@
+generated 100 games worth of state, remaining score pairs using go-as-low-as-possible strategy
+    -average final score 90.1
+    -90% confidence interval 83, 97
+trained sklearn mlpregressor on it, eventual accuracy 79.77% (don't really know what that means)
+    -predicted starting score is 91.38
+
+but, is crappy at actually playing the game.
+    -average final score about 20
+    -also starts making super wild predictions, like that we're going to score 300 or -50
+    -hypothesis: using the new NN to play the game gets us into positions we never got into with the heuristic, like overly spacious grid.
