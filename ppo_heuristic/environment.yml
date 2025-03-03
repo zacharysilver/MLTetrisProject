@@ -1,0 +1,11 @@
+name: tetris_ppo
+channels:
+  - conda-forge
+dependencies:
+  - python=3.9
+  - pip
+  - pip:
+    - numpy
+    - gym
+    - pygame
+    - stable-baselines3
