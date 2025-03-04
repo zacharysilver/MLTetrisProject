@@ -31,6 +31,7 @@ class HeuristicTetrisAgent:
         """
         Called each step. If we already have a plan of actions, pop the next one.
         Otherwise, compute the best move sequence for the current piece.
+        env can be either a tetris_env or tetris_gamestate.
         """
         # If we have an action plan left over, use it:
         if self._action_plan:
@@ -58,7 +59,7 @@ class HeuristicTetrisAgent:
         best_score = -999999
         best_sequence = []
 
-        game_state = env.game_state  # The pure logic from TetrisEnv
+        game_state = env if isinstance(env, TetrisGameState) else env.game_state # The pure logic from TetrisEnv
         shape = game_state.current_piece.shape
         max_rotations = len(TETROMINOS[shape])
 

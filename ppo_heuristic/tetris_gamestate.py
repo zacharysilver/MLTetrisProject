@@ -143,7 +143,7 @@ class TetrisGameState:
             reward += cleared
             self._check_level_up()
             self.current_piece = self._get_new_piece()
-            if self._would_collision(0,0, piece=self.current_piece):
+            if self.current_piece is None or self._would_collision(0,0, piece=self.current_piece):
                 self.game_over = True
                 reward -= 5.0
             return (reward, self.game_over)
@@ -158,7 +158,7 @@ class TetrisGameState:
             reward += cleared
             self._check_level_up()
             self.current_piece = self._get_new_piece()
-            if self._would_collision(0,0, piece=self.current_piece):
+            if self.current_piece is None or self._would_collision(0,0, piece=self.current_piece):
                 self.game_over = True
                 reward -= 5.0
 
@@ -172,11 +172,12 @@ class TetrisGameState:
             self.level += 1
 
     def _get_new_piece(self):
-        while True:
+        for _ in range(30):
             shape = random.choice(list(TETROMINOS.keys()))
-            piece = Tetromino(shape, row=-2, col=BOARD_WIDTH//2 - 2, rotation=0)
+            piece = Tetromino(shape, row=0, col=BOARD_WIDTH//2 - 2, rotation=0)
             if not self._would_collision(0, 0, piece=piece):
                 return piece
+        self.game_over= True
 
     def _would_collision(self, dx, dy, rotation=None, piece=None):
         if piece is None:
